@@ -1,27 +1,24 @@
-﻿// ISP
-public interface IUserCreationService
+// ISP
+using System;
+using ISP.Interfaces;
+using ISP.Classes;
+public class Program
 {
-    void CreateUser(User user);
-    void DeleteUser(User user);
-}
+    public static void Main(string[] args)
+    {
+       UserService userService = new UserService();
 
-public interface IUserUpdateService
-{
-    void UpdateUser(User user);
-}
+        User user = new User { UserId = 1, Name = "Mr Bean", Password = "12344" };
+        userService.CreateUser(user);
 
-public interface IUserQueryService
-{
-    User GetUser(int userId);
-}
+        user.Name = "John Wick";
+        userService.UpdateUser(user);
 
-public class User
-{
-}
+        var retrievedUser = userService.GetUser(user.UserId);
+        Console.WriteLine($"User ID: {retrievedUser.UserId}, Name: {retrievedUser.Name}, Password: {retrievedUser.Password}");
 
-public interface IUserNotificationService
-{
-    void SendEmail(User user, string message);
+        userService.DeleteUser(user);
+    }
 }
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // public interface IUserService
